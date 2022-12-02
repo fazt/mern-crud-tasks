@@ -1,36 +1,51 @@
-const userCtrl = {};
+import User from "../models/User.js";
 
-const User = require('../models/User');
-
-userCtrl.getUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    }
-    catch (err) {
-        res.status(400).json({
-            error: err
-        });
-    }
+export const getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    next(error);
+  }
 };
 
-userCtrl.createUser = async (req, res) => {
-    try {
-        const { username } = req.body;
+export const createUser = async (req, res, next) => {
+  try {
+    const { username } = req.body;
 
-        const newUser = new User({ username });
-        await newUser.save();
-        res.json('User created');
-    } catch (e) {
-        console.log(e)
-        res.json(e.errmsg);
+    // Find an existing user
+    const userFound = await User.findOne({ username });
+    console.log(userFound);
+
+    // if user exists return a 409 http status code
+    if (userFound) {
+      const error = new Error("The user already exists");
+      error.status = 409;
+      throw error;
     }
+
+    // Create a new User
+    const newUser = new User({ username });
+    const userSaved = await newUser.save();
+    return res.json(userSaved);
+  } catch (error) {
+    next(error);
+  }
 };
 
-userCtrl.deleteUser = async (req, res) => {
+export const deleteUser = async (req, res, next) => {
+  try {
     const { id } = req.params;
-    await User.findByIdAndDelete(id);
-    res.json('User deleted');
-}
+    const userDeleted = await User.findByIdAndDelete(id);
 
-module.exports = userCtrl;
+    if (!userDeleted) {
+      const error = new Error("User not found");
+      error.status = 404;
+      throw error;
+    }
+
+    return res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+};

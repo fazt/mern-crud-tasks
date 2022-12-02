@@ -1,0 +1,12 @@
+@api = http://localhost:4000/api
+
+### get all users
+GET {{api}}/users
+
+### create a user
+POST {{api}}/users
+Content-Type: application/json
+
+{
+  "username": "marcos"
+}

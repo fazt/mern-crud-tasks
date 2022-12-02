@@ -1,0 +1,28 @@
+@api = http://localhost:4000/api
+
+### get all notes
+GET {{api}}/notes
+
+### create a post
+POST {{api}}/notes
+Content-Type: application/json
+
+{
+  "title": "my first title",
+  "author": "fazt",
+  "content": "important content"
+}
+
+### get single post
+GET {{api}}/notes/638a6ce7d2d6259d0854697c
+
+### delete post
+DELETE {{api}}/notes/638a6d0ad2d6259d08546983
+
+### update a single post
+PUT {{api}}/notes/638a6d0ad2d6259d08546983
+Content-Type: application/json
+
+{
+  "content": "this is a new content"
+}

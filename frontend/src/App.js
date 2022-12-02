@@ -1,25 +1,28 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Navigation from './components/Navigation'
-import NotesList from './components/NotesList'
-import CreateNote from './components/CreateNote'
-import CreateUser from './components/CreateUser'
+import { Navigation } from "./components/Navigation";
+import { NotesList } from "./components/NotesList";
+import CreateNote from "./components/CreateNote";
+import CreateUser from "./components/CreateUser";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
-    <Router>
-      <Navigation />
-      <div className="container p-4">
-        <Route path="/" exact component={NotesList} />
-        <Route path="/edit/:id" component={CreateNote} />
-        <Route path="/create" component={CreateNote} />
-        <Route path="/user" component={CreateUser} />
-      </div>
-    </Router>
+    <div className="bg-dark vh-100">
+      <BrowserRouter>
+        <Navigation />
+        <div className="container p-4">
+          <Routes>
+            <Route path="/" element={<NotesList />} />
+            <Route path="/edit/:id" element={<CreateNote />} />
+            <Route path="/create" element={<CreateNote />} />
+            <Route path="/user" element={<CreateUser />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </div>
   );
 }
 

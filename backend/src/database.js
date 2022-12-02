@@ -1,16 +1,13 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
+import { MONGODB_URI } from "./config.js";
 
-const URI = process.env.MONGOOSE_URI
-    ? process.env.MONGOOSE_URI
-    : 'mongodb://localhost/merndatabase';
+try {
+  const conn = await mongoose.connect(MONGODB_URI);
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
+} catch (error) {
+  console.error({ error });
+}
 
-mongoose.connect(URI, {
-    useNewUrlParser: true,
-    useCreateIndex: true
-});
-
-const connection = mongoose.connection;
-
-connection.once('open', () => {
-    console.log('Database is connected');
+mongoose.connection.on("connected", () => {
+  console.log("Database is connected to", connection.db.databaseName);
 });
