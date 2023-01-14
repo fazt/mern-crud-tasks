@@ -1,0 +1,24 @@
+@api = http://localhost:4000/api/auth
+
+### Get Profile
+GET {{api}}/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2MyZTBiNmZkMWUyODkyYmQxYzI2MmQiLCJpYXQiOjE2NzM3MTU4OTR9.HKKO4tmSPGGBzeYt_dNtFPap2bohSwLUxKYf0xUZjb0
+
+### Signup
+POST {{api}}/signup
+Content-Type: application/json
+
+{
+  "email": "user12@gmail.com",
+  "password": "user3password",
+  "fullname": "user 11"
+}
+
+### Signin
+POST {{api}}/signin
+Content-Type: application/json
+
+{
+  "email": "user12@gmail.com",
+  "password": "user3password"
+}

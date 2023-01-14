@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  db:
+    image: mongo
+    container_name: merndb
+    ports: 
+      - 27017:27017

@@ -6,6 +6,7 @@ const app = express();
 
 import notesRoutes from "./routes/notes.routes.js";
 import usersRoutes from "./routes/users.routes.js";
+import authRoutes from "./routes/auth.routes.js";
 
 // settings
 app.set("port", process.env.PORT || 4000);
@@ -18,6 +19,7 @@ app.use(express.json());
 // routes
 app.use("/api", notesRoutes);
 app.use("/api", usersRoutes);
+app.use("/api/auth", authRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
